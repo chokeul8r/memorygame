@@ -92,7 +92,7 @@ h1 {
   backface-visibility: hidden;
 }
 
-.flip {
+.flipped {
   transform: rotateY(-180deg);
   transition: .7s all ease-in-out;
 }
