@@ -76,6 +76,7 @@ h1 {
 
 .back {
   background-color: bl#ffffff;
+  transform: rotateY(180deg);
 }
 
 .front, .back {
@@ -93,8 +94,8 @@ h1 {
 }
 
 .flipped {
-  transform: rotateY(-180deg);
-  transition: .7s all ease-in-out;
+  transform: rotateY(180deg);
+  transition: 1s all ease-in-out;
   cursor: default;
 }
 
