@@ -6,6 +6,9 @@ const cardDeck = document.querySelector('.deck');
 for(let i=0;i<imgList.length;i++) {
   const cards = document.createElement('div');
   cards.classList.add('card');
+  cards.addEventListener('click', function(){
+    cards.classList.add('flipped');
+  })
   const backCard = document.createElement('div');
   backCard.classList.add('back');
   const frontCard = document.createElement('div');
@@ -15,6 +18,7 @@ for(let i=0;i<imgList.length;i++) {
   cards.appendChild(backCard);
   cards.appendChild(frontCard);
   cardDeck.appendChild(cards);
+  
 }
 
 
