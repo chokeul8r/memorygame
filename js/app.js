@@ -34,10 +34,13 @@ function createCards() {
     cardArray[i] = itemAtIndex;
     //Adds Event Listener to Cards - Assigns Flipped Class to Flipped Cards - Pushes Flipped Cards to Flipped Cards Array
     cardArray[i].addEventListener('click', function () {
-      this.classList.add('flipped');
       flippedCards.push(this);
+      //limit the number of flipped cards to two
+      if (flippedCards.length < 3) {
+        this.classList.add('flipped');
+      }
     });
-
+    //Append Shuffled Cards to HTML Document 
     cardDeck.appendChild(cardArray[i]);
   }
 }
