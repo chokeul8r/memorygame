@@ -35,6 +35,9 @@ function createCards() {
     //Adds Event Listener to Cards - Assigns Flipped Class to Flipped Cards - Pushes Flipped Cards to Flipped Cards Array
     cardArray[i].addEventListener('click', function () {
       flippedCards.push(this);
+      //Call notMatched function 
+      notMatched();
+
       //limit the number of flipped cards to two
       if (flippedCards.length < 3) {
         this.classList.add('flipped');
@@ -46,3 +49,13 @@ function createCards() {
 }
 
 createCards();
+
+function notMatched() {
+  if (flippedCards.length === 2 && flippedCards[0].innerHTML !== flippedCards[1].innerHTML) {
+    setTimeout(function () {
+      for (let i = 0; i < flippedCards.length; i++) {
+        flippedCards[i].classList.remove('flipped');
+      }
+    }, 2000);
+  }
+}
