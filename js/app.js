@@ -23,7 +23,15 @@ function createCards() {
     <div class='front'><i class="fa fa-line-chart" style="font-size:60px;color:#ffffff;"></i></div>`
     cardArray.push(cards);
   }
+  for (let i = cardArray.length - 1; i >= 0; i--) {
 
+    let randomIndex = Math.floor(Math.random() * (i + 1));
+    let itemAtIndex = cardArray[randomIndex];
+
+    cardArray[randomIndex] = cardArray[i];
+    cardArray[i] = itemAtIndex;
+
+  }
 }
 
 
