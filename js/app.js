@@ -2,6 +2,17 @@ const imgList = ['<img src="img/bastiat_card.png" alt="Frédéric Bastiat">', '<
 
 const cardDeck = document.querySelector('.deck');
 const cardArray = [];
+const counter = document.querySelector('.moves');
+const starRating = document.querySelector('.stars');
+const flippedCards = [];
+const matchedCards = [];
+let startTrigger = 0;
+let startTime = 0;
+let finishTime = 0;
+let totalMatched = 0;
+let timeElapsed = finishTime - startTime;
+let minutes = Math.floor(timeElapsed / 60000);
+let secRemaining = Math.round((timeElapsed / 1000) - (minutes * 60));
 
 
 function createCards() {
