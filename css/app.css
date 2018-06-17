@@ -16,6 +16,10 @@ body {
   padding: 0;
 }
 
+img {
+  max-width: 100%;
+}
+
 body {
   background: #ffffff url('/img/gears_background.jpg');
   background-repeat: repeat-x repeat-y;
@@ -79,7 +83,8 @@ h1 {
   transform: rotateY(180deg);
 }
 
-.front, .back {
+.front,
+.back {
   height: 180px;
   width: 125px;
   border-radius: 8px;
@@ -102,7 +107,6 @@ h1 {
 .matched {
   cursor: default;
 }
-
 
 /*
  * Styles for the Score Panel
@@ -133,7 +137,7 @@ h1 {
   margin-right: 7px;
 }
 
-.score-panel .restart {
+.score-panel .reset {
   float: right;
   cursor: pointer;
   margin-left: 7px;
