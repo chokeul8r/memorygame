@@ -31,6 +31,12 @@ function createCards() {
     cardArray[randomIndex] = cardArray[i];
     cardArray[i] = itemAtIndex;
 
+    cardArray[i].addEventListener('click', function () {
+      this.classList.add('flipped');
+      flippedCards.push(this);
+
+    });
+
   }
 }
 
