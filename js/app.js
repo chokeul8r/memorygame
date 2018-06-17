@@ -16,6 +16,7 @@ let secRemaining = Math.round((timeElapsed / 1000) - (minutes * 60));
 
 
 function createCards() {
+  //Loops over imgList Array - Constructs Cards - Pushes to Card Array
   for (let i = 0; i < imgList.length; i++) {
     const cards = document.createElement('div');
     cards.classList.add('card');
@@ -23,6 +24,7 @@ function createCards() {
     <div class='front'><i class="fa fa-line-chart" style="font-size:60px;color:#ffffff;"></i></div>`
     cardArray.push(cards);
   }
+  //Loops and Shuffles Card Array 
   for (let i = cardArray.length - 1; i >= 0; i--) {
 
     let randomIndex = Math.floor(Math.random() * (i + 1));
@@ -30,15 +32,14 @@ function createCards() {
 
     cardArray[randomIndex] = cardArray[i];
     cardArray[i] = itemAtIndex;
-
+    //Adds Event Listener to Cards - Assigns Flipped Class to Flipped Cards - Pushes Flipped Cards to Flipped Cards Array
     cardArray[i].addEventListener('click', function () {
       this.classList.add('flipped');
       flippedCards.push(this);
-
     });
 
+    cardDeck.appendChild(cardArray[i]);
   }
 }
-
 
 createCards();
