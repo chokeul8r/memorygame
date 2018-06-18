@@ -57,6 +57,7 @@ function notMatched() {
       for (let i = 0; i < flippedCards.length; i++) {
         flippedCards[i].classList.remove('flipped');
       }
+      //Clear flippedCards Array
       flippedCards.splice(0, 16);
     }, 2000);
   }
@@ -69,7 +70,25 @@ function matchedPair() {
       matchedCards.push(this);
       totalMatched++;
     }
+    //Clear flippedCards Array
     flippedCards.splice(0, 16);
-    //matchedSet();
+    //Call matchedGame function
+    matchedGame();
+  }
+}
+
+function matchedGame() {
+  if (totalMatched === 16) {
+    setTimeout(function () {
+      const modal = document.createElement('div');
+      modal.classList.add('modal');
+      modal.innerHTML = `<div class='modal-content'>
+      <h1>Congratulations</h1>
+      <p>This is a paragraph</p>
+      <p>Another paragraph with 2 spans<span>1</span><span>2</span>
+      <button id='modal-reset' type ="button" onclick="reload()">Reset Button</button>
+      </div>`;
+      document.body.appendChild(modal);
+    }, 2000)
   }
 }
