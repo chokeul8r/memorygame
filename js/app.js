@@ -86,6 +86,7 @@ function matchedPair() {
 
 function matchedGame() {
   if (totalMatched === 16) {
+    finishTime = Date.now();
     setTimeout(function () {
       const modal = document.createElement('div');
       modal.classList.add('modal');
