@@ -91,6 +91,7 @@ function matchedPair() {
 
 function matchedGame() {
   if (totalMatched === 16) {
+    rating();
     gameTime();
     setTimeout(function () {
       const modal = document.createElement('div');
@@ -106,6 +107,34 @@ function matchedGame() {
 
   }
 
+}
+
+function rating() {
+  if (totalClicks > 39) {
+    starRating.innerHTML = `<li>
+    <i class="fa fa-star"></i>
+  </li>`
+    console.log('1 star');
+  } else if (29 < totalClicks <= 39) {
+    starRating.innerHTML = `<li>
+    <i class="fa fa-star"></i>
+  </li>
+  <li>
+    <i class="fa fa-star"></i>
+  </li>`
+    console.log('2 stars');
+  } else if (15 < totalClicks <= 29) {
+    starRating.innerHTML = `<li>
+    <i class="fa fa-star"></i>
+  </li>
+  <li>
+    <i class="fa fa-star"></i>
+  </li>
+  <li>
+    <i class="fa fa-star"></i>
+  </li>`
+    console.log('3 stars');
+  }
 }
 
 function gameTime() {
