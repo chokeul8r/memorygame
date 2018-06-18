@@ -1,12 +1,13 @@
 const imgList = ['<img src="img/bastiat_card.png" alt="Frédéric Bastiat">', '<img src="img/bastiat_card.png" alt="Frédéric Bastiat">', '<img src="img/fama_card.png" alt="Eugene Fama">', '<img src="img/fama_card.png" alt="Eugene Fama">', '<img src="img/friedman_card.png" alt="Milton Friedman">', '<img src="img/friedman_card.png" alt="Milton Friedman">', '<img src="img/hayek_card.png" alt="Friedrich Hayek">', '<img src="img/hayek_card.png" alt="Friedrich Hayek">', '<img src="img/keynes_card.png" alt="John Maynard Keynes">', '<img src="img/keynes_card.png" alt="John Maynard Keynes">', '<img src="img/menger_card.png" alt="Carl Menger">', '<img src="img/menger_card.png" alt="Carl Menger">', '<img src="img/mises_card.png" alt="Ludwig von Mises">', '<img src="img/mises_card.png" alt="Ludwig von Mises">', '<img src="img/rothbard_card.png" alt="Murray Rothbard">', '<img src="img/rothbard_card.png" alt="Murray Rothbard">', ];
 
 const cardDeck = document.querySelector('.deck');
-const cardArray = [];
 const counter = document.querySelector('.moves');
 const starRating = document.querySelector('.stars');
+const cardArray = [];
 const flippedCards = [];
 const matchedCards = [];
 const startTrigger = [];
+let totalClicks = 0;
 let startTime = 0;
 let finishTime = 0;
 let totalMatched = 0;
@@ -38,6 +39,10 @@ function createCards() {
       flippedCards.push(this);
       //Push Clicked Cards Into startTrigger Array
       startTrigger.push(this);
+      //Update Counter 
+      counter.innerHTML++;
+      //Track totalClicks
+      totalClicks++
       //limit the number of flipped cards to two
       if (flippedCards.length < 3) {
         this.classList.add('flipped');
