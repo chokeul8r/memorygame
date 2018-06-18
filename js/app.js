@@ -35,13 +35,14 @@ function createCards() {
     //Adds Event Listener to Cards - Assigns Flipped Class to Flipped Cards - Pushes Flipped Cards to Flipped Cards Array
     cardArray[i].addEventListener('click', function () {
       flippedCards.push(this);
-      //Call notMatched function 
-      notMatched();
-
       //limit the number of flipped cards to two
       if (flippedCards.length < 3) {
         this.classList.add('flipped');
       }
+      //Call notMatched function 
+      notMatched();
+      //Call matchedPair function
+      matchedPair();
     });
     //Append Shuffled Cards to HTML Document 
     cardDeck.appendChild(cardArray[i]);
@@ -56,6 +57,19 @@ function notMatched() {
       for (let i = 0; i < flippedCards.length; i++) {
         flippedCards[i].classList.remove('flipped');
       }
+      flippedCards.splice(0, 16);
     }, 2000);
+  }
+}
+
+function matchedPair() {
+  if (flippedCards.length === 2 && flippedCards[0].innerHTML === flippedCards[1].innerHTML) {
+    for (let i = 0; i < flippedCards.length; i++) {
+      flippedCards[i].classList.add('flipped', 'matched');
+      matchedCards.push(this);
+      totalMatched++;
+    }
+    flippedCards.splice(0, 16);
+    //matchedSet();
   }
 }
