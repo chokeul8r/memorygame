@@ -114,3 +114,8 @@ function gameTime() {
   minutes = Math.floor(timeElapsed / 60000);
   secRemaining = Math.round((timeElapsed / 1000) - (minutes * 60));
 }
+
+function reload() {
+  console.log('click');
+  location.reload();
+}
