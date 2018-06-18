@@ -6,7 +6,7 @@ const counter = document.querySelector('.moves');
 const starRating = document.querySelector('.stars');
 const flippedCards = [];
 const matchedCards = [];
-let startTrigger = 0;
+const startTrigger = [];
 let startTime = 0;
 let finishTime = 0;
 let totalMatched = 0;
@@ -34,10 +34,17 @@ function createCards() {
     cardArray[i] = itemAtIndex;
     //Adds Event Listener to Cards - Assigns Flipped Class to Flipped Cards - Pushes Flipped Cards to Flipped Cards Array
     cardArray[i].addEventListener('click', function () {
+      //Push Clicked Cards Into flippedCards Array
       flippedCards.push(this);
+      //Push Clicked Cards Into startTrigger Array
+      startTrigger.push(this);
       //limit the number of flipped cards to two
       if (flippedCards.length < 3) {
         this.classList.add('flipped');
+      }
+      //Trip Date.now startTime 
+      if (startTrigger.length = 1) {
+        startTime = Date.now();
       }
       //Call notMatched function 
       notMatched();
