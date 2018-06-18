@@ -10,9 +10,9 @@ const startTrigger = [];
 let startTime = 0;
 let finishTime = 0;
 let totalMatched = 0;
-let timeElapsed = finishTime - startTime;
-let minutes = Math.floor(timeElapsed / 60000);
-let secRemaining = Math.round((timeElapsed / 1000) - (minutes * 60));
+let timeElapsed = 0;
+let minutes = 0;
+let secRemaining = 0;
 
 
 function createCards() {
@@ -43,7 +43,7 @@ function createCards() {
         this.classList.add('flipped');
       }
       //Trip Date.now startTime 
-      if (startTrigger.length = 1) {
+      if (startTrigger.length === 1) {
         startTime = Date.now();
       }
       //Call notMatched function 
@@ -86,7 +86,7 @@ function matchedPair() {
 
 function matchedGame() {
   if (totalMatched === 16) {
-    finishTime = Date.now();
+    gameTime();
     setTimeout(function () {
       const modal = document.createElement('div');
       modal.classList.add('modal');
@@ -98,5 +98,14 @@ function matchedGame() {
       </div>`;
       document.body.appendChild(modal);
     }, 2000)
+
   }
+
+}
+
+function gameTime() {
+  finishTime = Date.now();
+  timeElapsed = finishTime - startTime;
+  minutes = Math.floor(timeElapsed / 60000);
+  secRemaining = Math.round((timeElapsed / 1000) - (minutes * 60));
 }
