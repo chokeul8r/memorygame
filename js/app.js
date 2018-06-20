@@ -1,8 +1,10 @@
-const imgList = ['<img src="img/bastiat_card.png" alt="Frédéric Bastiat">', '<img src="img/bastiat_card.png" alt="Frédéric Bastiat">', '<img src="img/fama_card.png" alt="Eugene Fama">', '<img src="img/fama_card.png" alt="Eugene Fama">', '<img src="img/friedman_card.png" alt="Milton Friedman">', '<img src="img/friedman_card.png" alt="Milton Friedman">', '<img src="img/hayek_card.png" alt="Friedrich Hayek">', '<img src="img/hayek_card.png" alt="Friedrich Hayek">', '<img src="img/keynes_card.png" alt="John Maynard Keynes">', '<img src="img/keynes_card.png" alt="John Maynard Keynes">', '<img src="img/menger_card.png" alt="Carl Menger">', '<img src="img/menger_card.png" alt="Carl Menger">', '<img src="img/mises_card.png" alt="Ludwig von Mises">', '<img src="img/mises_card.png" alt="Ludwig von Mises">', '<img src="img/rothbard_card.png" alt="Murray Rothbard">', '<img src="img/rothbard_card.png" alt="Murray Rothbard">', ];
+const imgList = ['<img src="img/bastiat_card.png" alt="Frédéric Bastiat">', '<img src="img/bastiat_card.png" alt="Frédéric Bastiat">', '<img src="img/fama_card.png" alt="Eugene Fama">', '<img src="img/fama_card.png" alt="Eugene Fama">', '<img src="img/friedman_card.png" alt="Milton Friedman">', '<img src="img/friedman_card.png" alt="Milton Friedman">', '<img src="img/hayek_card.png" alt="Friedrich Hayek">', '<img src="img/hayek_card.png" alt="Friedrich Hayek">', '<img src="img/keynes_card.png" alt="John Maynard Keynes">', '<img src="img/keynes_card.png" alt="John Maynard Keynes">', '<img src="img/menger_card.png" alt="Carl Menger">', '<img src="img/menger_card.png" alt="Carl Menger">', '<img src="img/mises_card.png" alt="Ludwig von Mises">', '<img src="img/mises_card.png" alt="Ludwig von Mises">', '<img src="img/rothbard_card.png" alt="Murray Rothbard">', '<img src="img/rothbard_card.png" alt="Murray Rothbard">'];
 
 const cardDeck = document.querySelector('.deck');
 const counter = document.querySelector('.moves');
 const starRating = document.querySelector('.stars');
+
+
 const cardArray = [];
 const flippedCards = [];
 const matchedCards = [];
@@ -22,7 +24,7 @@ function createCards() {
     const cards = document.createElement('div');
     cards.classList.add('card');
     cards.innerHTML = `<div class='back'>${imgList[i]}</div>
-    <div class='front'><i class="fa fa-line-chart" style="font-size:60px;color:#ffffff;"></i></div>`
+    <div class='front'><i class="fa fa-line-chart" style="font-size:2em;color:#ffffff;"></i></div>`
     cardArray.push(cards);
   }
   //Loops and Shuffles Card Array 
@@ -33,7 +35,7 @@ function createCards() {
 
     cardArray[randomIndex] = cardArray[i];
     cardArray[i] = itemAtIndex;
-    //Adds Event Listener to Cards - Assigns Flipped Class to Flipped Cards - Pushes Flipped Cards to Flipped Cards Array
+    //Adds Event Listener to Cards - Assigns Flipped Class to Flipped Cards 
     cardArray[i].addEventListener('click', function () {
       //Push Clicked Cards Into flippedCards Array
       flippedCards.push(this);
@@ -63,6 +65,7 @@ function createCards() {
 
 createCards();
 
+//This function removes flipped class if selected cards do not match
 function notMatched() {
   if (flippedCards.length === 2 && flippedCards[0].innerHTML !== flippedCards[1].innerHTML) {
     setTimeout(function () {
@@ -75,6 +78,7 @@ function notMatched() {
   }
 }
 
+//This function adds matched class to selected cards that match
 function matchedPair() {
   if (flippedCards.length === 2 && flippedCards[0].innerHTML === flippedCards[1].innerHTML) {
     for (let i = 0; i < flippedCards.length; i++) {
@@ -89,6 +93,7 @@ function matchedPair() {
   }
 }
 
+//This function constructs modal at game end
 function matchedGame() {
   if (totalMatched === 16) {
     rating();
@@ -97,10 +102,13 @@ function matchedGame() {
       const modal = document.createElement('div');
       modal.classList.add('modal');
       modal.innerHTML = `<div class='modal-content'>
-      <h1>Congratulations</h1>
-      <p>This is a paragraph</p>
-      <p>Another paragraph with 2 spans<span>1</span><span>2</span>
-      <button id='modal-reset' type ="button" onclick="reload()">Reset Button</button>
+      <h1>Congratulations!</h1>
+      <p>Thank's for playing the Brilliant Economists Memory Game.</p>
+      <p>You completed the game in <span>${totalClicks}</span> clicks with a time of <span>${minutes}:${secRemaining}</span> minutes</p><br>
+      <div id='modal-stars'>Your Star Rating is: <ul>${starRating.innerHTML}</ul> 
+      </div><br>
+      <p>If you would like to play again click the button below.</p>
+      <button id='modal-reset' type ="button" onclick="reload()">Play Again</button>
       </div>`;
       document.body.appendChild(modal);
     }, 2000)
@@ -109,34 +117,26 @@ function matchedGame() {
 
 }
 
+
+//This function assigns player star rating based on number of clicks to complete the game
 function rating() {
-  if (totalClicks > 39) {
-    starRating.innerHTML = `<li>
-    <i class="fa fa-star"></i>
-  </li>`
-    console.log('1 star');
-  } else if (29 < totalClicks <= 39) {
-    starRating.innerHTML = `<li>
-    <i class="fa fa-star"></i>
-  </li>
-  <li>
-    <i class="fa fa-star"></i>
-  </li>`
-    console.log('2 stars');
-  } else if (15 < totalClicks <= 29) {
-    starRating.innerHTML = `<li>
-    <i class="fa fa-star"></i>
-  </li>
-  <li>
-    <i class="fa fa-star"></i>
-  </li>
-  <li>
-    <i class="fa fa-star"></i>
-  </li>`
-    console.log('3 stars');
+  if (totalClicks <= 29) {
+    starRating.innerHTML = `
+    <li><i class="fa fa-star"></i></li>
+    <li><i class="fa fa-star"></i></li>
+    <li><i class="fa fa-star"></i></li>`
+  } else if (30 <= totalClicks && totalClicks <= 39) {
+    starRating.innerHTML = `
+    <li><i class="fa fa-star"></i></li>
+    <li><i class="fa fa-star"></i></li>`
+  } else if (totalClicks >= 40) {
+    starRating.innerHTML = `
+    <li><i class="fa fa-star"></i></li>`
   }
 }
 
+
+//This funtion time stamps the finish time and computes for game timer
 function gameTime() {
   finishTime = Date.now();
   timeElapsed = finishTime - startTime;
@@ -144,6 +144,8 @@ function gameTime() {
   secRemaining = Math.round((timeElapsed / 1000) - (minutes * 60));
 }
 
+
+//This function reloads/restarts the game
 function reload() {
   console.log('click');
   location.reload();

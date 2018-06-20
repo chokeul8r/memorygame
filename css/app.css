@@ -40,9 +40,15 @@ header {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin: 0px -40px;
+  padding: 0px 10px;
 }
 
 h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   font-family: 'Open Sans', sans-serif;
   font-weight: 300;
 }
@@ -55,10 +61,13 @@ h1 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
+  grid-gap: 20px;
   justify-items: center;
   align-items: center;
-  width: 660px;
-  min-height: 880px;
+  min-width: 33%;
+  max-height: 90%;
+  /* width: 660px;
+  min-height: 880px; */
   background-color: #ffffff;
   padding: 32px;
   border-radius: 10px;
@@ -85,8 +94,8 @@ h1 {
 
 .front,
 .back {
-  height: 180px;
-  width: 125px;
+  max-height: 180px;
+  max-width: 125px;
   border-radius: 8px;
   cursor: pointer;
   box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
@@ -167,11 +176,11 @@ h1 {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 660px;
-  min-height: 880px;
+  width: 90%;
+  height: 75%;
   border-radius: 10px;
   background-color: #f4f4f4;
-  margin: 145px auto;
+  margin: 125px auto;
   padding: 20px;
   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
 }
@@ -180,7 +189,17 @@ h1 {
   color: #ffffff;
   background-color: green;
   display: block;
-  margin: 25px auto;
-  height: 45px;
+  min-height: 45px;
   width: 200px;
+}
+
+#modal-stars ul {
+  list-style: none;
+  display: inline;
+  white-space: nowrap;
+  margin-left: -15px;
+}
+
+#modal-stars ul li {
+  display: inline;
 }
