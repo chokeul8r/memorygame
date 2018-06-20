@@ -41,13 +41,13 @@ function createCards() {
       flippedCards.push(this);
       //Push Clicked Cards Into startTrigger Array
       startTrigger.push(this);
-      //Update Counter 
-      counter.innerHTML++;
       //Track totalClicks
       totalClicks++
       //limit the number of flipped cards to two
       if (flippedCards.length < 3) {
         this.classList.add('flipped');
+        //Update Counter 
+        counter.innerHTML++;
       }
       //Trip Date.now startTime 
       if (startTrigger.length === 1) {
