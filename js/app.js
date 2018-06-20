@@ -35,6 +35,7 @@ function createCards() {
 
     cardArray[randomIndex] = cardArray[i];
     cardArray[i] = itemAtIndex;
+    rating();
     //Adds Event Listener to Cards - Assigns Flipped Class to Flipped Cards 
     cardArray[i].addEventListener('click', function () {
       //Push Clicked Cards Into flippedCards Array
@@ -57,6 +58,8 @@ function createCards() {
       notMatched();
       //Call matchedPair function
       matchedPair();
+      //Test Rating with Every Click
+      rating();
     });
     //Append Shuffled Cards to HTML Document 
     cardDeck.appendChild(cardArray[i]);
@@ -96,7 +99,6 @@ function matchedPair() {
 //This function constructs modal at game end
 function matchedGame() {
   if (totalMatched === 16) {
-    rating();
     gameTime();
     setTimeout(function () {
       const modal = document.createElement('div');
@@ -131,6 +133,11 @@ function rating() {
     <li><i class="fa fa-star"></i></li>`
   } else if (totalClicks >= 40) {
     starRating.innerHTML = `
+    <li><i class="fa fa-star"></i></li>`
+  } else {
+    starRating.innerHTML = `
+    <li><i class="fa fa-star"></i></li>
+    <li><i class="fa fa-star"></i></li>
     <li><i class="fa fa-star"></i></li>`
   }
 }
