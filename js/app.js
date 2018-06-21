@@ -1,21 +1,27 @@
-const imgList = ['<img src="img/bastiat_card.png" alt="Frédéric Bastiat">', '<img src="img/bastiat_card.png" alt="Frédéric Bastiat">', '<img src="img/fama_card.png" alt="Eugene Fama">', '<img src="img/fama_card.png" alt="Eugene Fama">', '<img src="img/friedman_card.png" alt="Milton Friedman">', '<img src="img/friedman_card.png" alt="Milton Friedman">', '<img src="img/hayek_card.png" alt="Friedrich Hayek">', '<img src="img/hayek_card.png" alt="Friedrich Hayek">', '<img src="img/keynes_card.png" alt="John Maynard Keynes">', '<img src="img/keynes_card.png" alt="John Maynard Keynes">', '<img src="img/menger_card.png" alt="Carl Menger">', '<img src="img/menger_card.png" alt="Carl Menger">', '<img src="img/mises_card.png" alt="Ludwig von Mises">', '<img src="img/mises_card.png" alt="Ludwig von Mises">', '<img src="img/rothbard_card.png" alt="Murray Rothbard">', '<img src="img/rothbard_card.png" alt="Murray Rothbard">'];
+const imgList = [
+  '<img src="img/bastiat_card.png" alt="Frédéric Bastiat">', '<img src="img/bastiat_card.png" alt="Frédéric Bastiat">', '<img src="img/fama_card.png" alt="Eugene Fama">',
+  '<img src="img/fama_card.png" alt="Eugene Fama">',
+  '<img src="img/friedman_card.png" alt="Milton Friedman">', '<img src="img/friedman_card.png" alt="Milton Friedman">', '<img src="img/hayek_card.png" alt="Friedrich Hayek">',
+  '<img src="img/hayek_card.png" alt="Friedrich Hayek">',
+  '<img src="img/keynes_card.png" alt="John Maynard Keynes">', '<img src="img/keynes_card.png" alt="John Maynard Keynes">', '<img src="img/menger_card.png" alt="Carl Menger">',
+  '<img src="img/menger_card.png" alt="Carl Menger">',
+  '<img src="img/mises_card.png" alt="Ludwig von Mises">', '<img src="img/mises_card.png" alt="Ludwig von Mises">', '<img src="img/rothbard_card.png" alt="Murray Rothbard">', '<img src="img/rothbard_card.png" alt="Murray Rothbard">'
+];
 
 const cardDeck = document.querySelector('.deck');
 const counter = document.querySelector('.moves');
 const starRating = document.querySelector('.stars');
-
+const myStopWatch = document.getElementById('stopWatch');
 
 const cardArray = [];
 const flippedCards = [];
 const matchedCards = [];
 const startTrigger = [];
 let totalClicks = 0;
-let startTime = 0;
-let finishTime = 0;
 let totalMatched = 0;
 let timeElapsed = 0;
+let seconds = 0;
 let minutes = 0;
-let secRemaining = 0;
 
 
 function createCards() {
@@ -35,6 +41,7 @@ function createCards() {
 
     cardArray[randomIndex] = cardArray[i];
     cardArray[i] = itemAtIndex;
+    //Insert Default Star Rating at Start of Game
     rating();
     //Adds Event Listener to Cards - Assigns Flipped Class to Flipped Cards 
     cardArray[i].addEventListener('click', function () {
@@ -48,17 +55,17 @@ function createCards() {
       if (flippedCards.length < 3) {
         this.classList.add('flipped');
         //Update Counter 
-        counter.innerHTML++;
+        counter.innerHTML++; //Need to do something here to stop mutiple clicks on the same card. 
       }
       //Trip Date.now startTime 
       if (startTrigger.length === 1) {
-        startTime = Date.now();
+        time();
       }
       //Call notMatched function 
       notMatched();
       //Call matchedPair function
       matchedPair();
-      //Test Rating with Every Click
+      //Test Rating With Every Click
       rating();
     });
     //Append Shuffled Cards to HTML Document 
@@ -99,14 +106,14 @@ function matchedPair() {
 //This function constructs modal at game end
 function matchedGame() {
   if (totalMatched === 16) {
-    gameTime();
+    stop();
     setTimeout(function () {
       const modal = document.createElement('div');
       modal.classList.add('modal');
       modal.innerHTML = `<div class='modal-content'>
       <h1>Congratulations!</h1>
       <p>Thank's for playing the Brilliant Economists Memory Game.</p>
-      <p>You completed the game in <span>${totalClicks}</span> clicks with a time of <span>${minutes}:${secRemaining}</span> minutes</p><br>
+      <p>You completed the game in <span>${totalClicks}</span> clicks with a time of <span>${myStopWatch.textContent}</span> minutes</p><br>
       <div id='modal-stars'>Your Star Rating is: <ul>${starRating.innerHTML}</ul> 
       </div><br>
       <p>If you would like to play again click the button below.</p>
@@ -142,18 +149,45 @@ function rating() {
   }
 }
 
-
-//This funtion time stamps the finish time and computes for game timer
-function gameTime() {
-  finishTime = Date.now();
-  timeElapsed = finishTime - startTime;
-  minutes = Math.floor(timeElapsed / 60000);
-  secRemaining = Math.round((timeElapsed / 1000) - (minutes * 60));
-}
-
-
 //This function reloads/restarts the game
 function reload() {
-  console.log('click');
+  myStopWatch.textContent = '00:00';
   location.reload();
+}
+
+//Create a Stop Watch
+function time() {
+  seconds++;
+  if (seconds >= 60) {
+    seconds = 0;
+    minutes++;
+  }
+
+  if (seconds > 9) {
+    mySeconds = seconds;
+  } else if (seconds <= 9) {
+    mySeconds = '0' + seconds;
+  } else {
+    mySeconds = '00';
+  }
+
+  if (minutes > 9) {
+    myMinutes = minutes;
+  } else if (minutes <= 9) {
+    myMinutes = '0' + minutes;
+  } else {
+    myMinutes = '00';
+  }
+  myStopWatch.textContent = (myMinutes + ":" + mySeconds);
+
+  timer();
+}
+//This Function Starts the Stop Watch After 1 Second Delay
+function timer() {
+  t = setTimeout(time, 1000);
+}
+
+//This funtion Stops the Stop Watch and calls clearTimeout Function
+function stop() {
+  clearTimeout(t);
 }

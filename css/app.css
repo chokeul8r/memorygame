@@ -66,8 +66,6 @@ h1 {
   align-items: center;
   min-width: 33%;
   max-height: 90%;
-  /* width: 660px;
-  min-height: 880px; */
   background-color: #ffffff;
   padding: 32px;
   border-radius: 10px;
@@ -125,8 +123,6 @@ h1 {
   background-color: #ffffff;
   text-align: left;
   width: 100%;
-  margin-bottom: 25px;
-  padding-bottom: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -154,6 +150,16 @@ h1 {
 
 .moves {
   margin-right: 5px;
+}
+
+.timer {
+  width: 100%;
+  background-color: #ffffff;
+  margin: 0 0 25px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
 }
 
 /*
@@ -206,7 +212,7 @@ h1 {
 
 /* Media Queries */
 
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 768px) {
   .deck {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(5, 1fr);
@@ -217,5 +223,8 @@ h1 {
   .deck {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(6, 1fr);
+  }
+  header h1 {
+    padding-left: 50px;
   }
 }
