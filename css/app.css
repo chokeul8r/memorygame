@@ -203,3 +203,19 @@ h1 {
 #modal-stars ul li {
   display: inline;
 }
+
+/* Media Queries */
+
+@media screen and (max-width: 760px) {
+  .deck {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .deck {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+  }
+}
