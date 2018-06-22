@@ -12,7 +12,6 @@ const cardDeck = document.querySelector('.deck');
 const counter = document.querySelector('.moves');
 const starRating = document.querySelector('.stars');
 const myStopWatch = document.getElementById('stopWatch');
-
 const cardArray = [];
 const flippedCards = [];
 const matchedCards = [];
@@ -45,28 +44,31 @@ function createCards() {
     rating();
     //Adds Event Listener to Cards - Assigns Flipped Class to Flipped Cards 
     cardArray[i].addEventListener('click', function () {
-      //Push Clicked Cards Into flippedCards Array
-      flippedCards.push(this);
-      //Push Clicked Cards Into startTrigger Array
-      startTrigger.push(this);
-      //Track totalClicks
-      totalClicks++
-      //limit the number of flipped cards to two
-      if (flippedCards.length < 3) {
-        this.classList.add('flipped');
-        //Update Counter 
-        counter.innerHTML++; //Need to do something here to stop mutiple clicks on the same card. 
+      //Prevents Event Listener/Counter Iteration If classList.length > 2
+      if (this.classList.length < 2) {
+        //Push Clicked Cards Into flippedCards Array
+        flippedCards.push(this);
+        //Push Clicked Cards Into startTrigger Array
+        startTrigger.push(this);
+        //limit the number of flipped cards to two
+        if (flippedCards.length < 3) {
+          this.classList.add('flipped');
+          //Update Counter
+          counter.innerHTML++; //Need to do something here to stop mutiple clicks on the same card.
+          //Track totalClicks
+          totalClicks++
+        }
+        //Trip Date.now startTime 
+        if (startTrigger.length === 1) {
+          time();
+        }
+        //Call notMatched function 
+        notMatched();
+        //Call matchedPair function
+        matchedPair();
+        //Test Rating With Every Click
+        rating();
       }
-      //Trip Date.now startTime 
-      if (startTrigger.length === 1) {
-        time();
-      }
-      //Call notMatched function 
-      notMatched();
-      //Call matchedPair function
-      matchedPair();
-      //Test Rating With Every Click
-      rating();
     });
     //Append Shuffled Cards to HTML Document 
     cardDeck.appendChild(cardArray[i]);
@@ -92,7 +94,7 @@ function notMatched() {
 function matchedPair() {
   if (flippedCards.length === 2 && flippedCards[0].innerHTML === flippedCards[1].innerHTML) {
     for (let i = 0; i < flippedCards.length; i++) {
-      flippedCards[i].classList.add('flipped', 'matched');
+      flippedCards[i].classList.add('matched');
       matchedCards.push(this);
       totalMatched++;
     }
@@ -113,7 +115,7 @@ function matchedGame() {
       modal.innerHTML = `<div class='modal-content'>
       <h1>Congratulations!</h1>
       <p>Thank's for playing the Brilliant Economists Memory Game.</p>
-      <p>You completed the game in <span>${totalClicks}</span> clicks with a time of <span>${myStopWatch.textContent}</span> minutes</p><br>
+      <p>You completed the game in <span>${totalClicks}</span> Moves with a time of <span>${myStopWatch.textContent}</span> minutes</p><br>
       <div id='modal-stars'>Your Star Rating is: <ul>${starRating.innerHTML}</ul> 
       </div><br>
       <p>If you would like to play again click the button below.</p>
@@ -129,16 +131,16 @@ function matchedGame() {
 
 //This function assigns player star rating based on number of clicks to complete the game
 function rating() {
-  if (totalClicks <= 29) {
+  if (counter.innerHTML <= 29) {
     starRating.innerHTML = `
     <li><i class="fa fa-star"></i></li>
     <li><i class="fa fa-star"></i></li>
     <li><i class="fa fa-star"></i></li>`
-  } else if (30 <= totalClicks && totalClicks <= 39) {
+  } else if (30 <= counter.innerHTML && counter.innerHTML <= 39) {
     starRating.innerHTML = `
     <li><i class="fa fa-star"></i></li>
     <li><i class="fa fa-star"></i></li>`
-  } else if (totalClicks >= 40) {
+  } else if (counter.innerHTML >= 40) {
     starRating.innerHTML = `
     <li><i class="fa fa-star"></i></li>`
   } else {
@@ -147,12 +149,6 @@ function rating() {
     <li><i class="fa fa-star"></i></li>
     <li><i class="fa fa-star"></i></li>`
   }
-}
-
-//This function reloads/restarts the game
-function reload() {
-  myStopWatch.textContent = '00:00';
-  location.reload();
 }
 
 //Create a Stop Watch
@@ -182,7 +178,7 @@ function time() {
 
   timer();
 }
-//This Function Starts the Stop Watch After 1 Second Delay
+//This Function Starts the Stop Watch After 1 Second Delay Using the setTimeout Method
 function timer() {
   t = setTimeout(time, 1000);
 }
@@ -190,4 +186,10 @@ function timer() {
 //This funtion Stops the Stop Watch and calls clearTimeout Function
 function stop() {
   clearTimeout(t);
+}
+
+//This function reloads/restarts the game
+function reload() {
+  myStopWatch.textContent = '00:00';
+  location.reload();
 }
