@@ -1,11 +1,20 @@
 const imgList = [
-  '<img src="img/bastiat_card.png" alt="Frédéric Bastiat">', '<img src="img/bastiat_card.png" alt="Frédéric Bastiat">', '<img src="img/fama_card.png" alt="Eugene Fama">',
+  '<img src="img/bastiat_card.png" alt="Frédéric Bastiat">',
+  '<img src="img/bastiat_card.png" alt="Frédéric Bastiat">',
   '<img src="img/fama_card.png" alt="Eugene Fama">',
-  '<img src="img/friedman_card.png" alt="Milton Friedman">', '<img src="img/friedman_card.png" alt="Milton Friedman">', '<img src="img/hayek_card.png" alt="Friedrich Hayek">',
+  '<img src="img/fama_card.png" alt="Eugene Fama">',
+  '<img src="img/friedman_card.png" alt="Milton Friedman">',
+  '<img src="img/friedman_card.png" alt="Milton Friedman">',
   '<img src="img/hayek_card.png" alt="Friedrich Hayek">',
-  '<img src="img/keynes_card.png" alt="John Maynard Keynes">', '<img src="img/keynes_card.png" alt="John Maynard Keynes">', '<img src="img/menger_card.png" alt="Carl Menger">',
+  '<img src="img/hayek_card.png" alt="Friedrich Hayek">',
+  '<img src="img/keynes_card.png" alt="John Maynard Keynes">',
+  '<img src="img/keynes_card.png" alt="John Maynard Keynes">',
   '<img src="img/menger_card.png" alt="Carl Menger">',
-  '<img src="img/mises_card.png" alt="Ludwig von Mises">', '<img src="img/mises_card.png" alt="Ludwig von Mises">', '<img src="img/rothbard_card.png" alt="Murray Rothbard">', '<img src="img/rothbard_card.png" alt="Murray Rothbard">'
+  '<img src="img/menger_card.png" alt="Carl Menger">',
+  '<img src="img/mises_card.png" alt="Ludwig von Mises">',
+  '<img src="img/mises_card.png" alt="Ludwig von Mises">',
+  '<img src="img/rothbard_card.png" alt="Murray Rothbard">',
+  '<img src="img/rothbard_card.png" alt="Murray Rothbard">'
 ];
 
 const cardDeck = document.querySelector('.deck');
@@ -18,13 +27,11 @@ const matchedCards = [];
 const startTrigger = [];
 let totalClicks = 0;
 let totalMatched = 0;
-let timeElapsed = 0;
 let seconds = 0;
 let minutes = 0;
 
-
+//Loops over imgList Array - Constructs Cards - Pushes to Card Array
 function createCards() {
-  //Loops over imgList Array - Constructs Cards - Pushes to Card Array
   for (let i = 0; i < imgList.length; i++) {
     const cards = document.createElement('div');
     cards.classList.add('card');
@@ -34,17 +41,15 @@ function createCards() {
   }
   //Loops and Shuffles Card Array 
   for (let i = cardArray.length - 1; i >= 0; i--) {
-
     let randomIndex = Math.floor(Math.random() * (i + 1));
     let itemAtIndex = cardArray[randomIndex];
-
     cardArray[randomIndex] = cardArray[i];
     cardArray[i] = itemAtIndex;
     //Insert Default Star Rating at Start of Game
     rating();
     //Adds Event Listener to Cards - Assigns Flipped Class to Flipped Cards 
     cardArray[i].addEventListener('click', function () {
-      //Prevents Event Listener/Counter Iteration If classList.length > 2
+      //Prevents Event Listener/Counter Iteration (Double Click) If classList.length > 1
       if (this.classList.length < 2) {
         //Push Clicked Cards Into flippedCards Array
         flippedCards.push(this);
@@ -54,11 +59,11 @@ function createCards() {
         if (flippedCards.length < 3) {
           this.classList.add('flipped');
           //Update Counter
-          counter.innerHTML++; //Need to do something here to stop mutiple clicks on the same card.
+          counter.innerHTML++;
           //Track totalClicks
           totalClicks++
         }
-        //Trip Date.now startTime 
+        //Trip Start Time 
         if (startTrigger.length === 1) {
           time();
         }
@@ -131,16 +136,16 @@ function matchedGame() {
 
 //This function assigns player star rating based on number of clicks to complete the game
 function rating() {
-  if (counter.innerHTML <= 29) {
+  if (totalClicks <= 29) {
     starRating.innerHTML = `
     <li><i class="fa fa-star"></i></li>
     <li><i class="fa fa-star"></i></li>
     <li><i class="fa fa-star"></i></li>`
-  } else if (30 <= counter.innerHTML && counter.innerHTML <= 39) {
+  } else if (30 <= totalClicks && totalClicks <= 39) {
     starRating.innerHTML = `
     <li><i class="fa fa-star"></i></li>
     <li><i class="fa fa-star"></i></li>`
-  } else if (counter.innerHTML >= 40) {
+  } else if (totalClicks >= 40) {
     starRating.innerHTML = `
     <li><i class="fa fa-star"></i></li>`
   } else {
@@ -175,15 +180,15 @@ function time() {
     myMinutes = '00';
   }
   myStopWatch.textContent = (myMinutes + ":" + mySeconds);
-
+  //Call timer function
   timer();
 }
-//This Function Starts the Stop Watch After 1 Second Delay Using the setTimeout Method
+//This function starts the Stop Watch after 1 second delay using the setTimeout Method
 function timer() {
   t = setTimeout(time, 1000);
 }
 
-//This funtion Stops the Stop Watch and calls clearTimeout Function
+//This funtion stops the Stop Watch and calls clearTimeout Method
 function stop() {
   clearTimeout(t);
 }
