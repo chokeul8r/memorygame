@@ -1,6 +1,3 @@
-# Editor.md
-
-
 # Brilliant Economists: Memory Game
 
  Brilliant Economists: Memory Game is a student project in Udacity's Front End Developer Program.
