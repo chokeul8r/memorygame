@@ -1,1 +1,5 @@
 img/
+package.json
+.eslintrc.js
+node_modules/
+package-lock.json
